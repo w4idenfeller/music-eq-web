@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/music-eq-web/static/css/main.e6c13ad2.css",
+    "main.js": "/music-eq-web/static/js/main.e315d976.js",
+    "static/js/453.2654aecb.chunk.js": "/music-eq-web/static/js/453.2654aecb.chunk.js",
+    "index.html": "/music-eq-web/index.html",
+    "main.e6c13ad2.css.map": "/music-eq-web/static/css/main.e6c13ad2.css.map",
+    "main.e315d976.js.map": "/music-eq-web/static/js/main.e315d976.js.map",
+    "453.2654aecb.chunk.js.map": "/music-eq-web/static/js/453.2654aecb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.e315d976.js"
+  ]
+}
