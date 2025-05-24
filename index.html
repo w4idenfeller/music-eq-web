@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Genre Detector</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f2f5; color: #333; display: flex; flex-direction: column; align-items: center; padding: 2rem; }
+    h1 { margin-bottom: 1rem; }
+    .uploader { margin-bottom: 1rem; }
+    #result { margin-top: 1rem; font-weight: bold; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <h1>Music Genre Detector</h1>
+  <div class="uploader">
+    <input type="file" id="fileInput" accept="audio/*">
+    <button id="analyzeBtn">Analyze Genre</button>
+  </div>
+  <p id="result"></p>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const resultElem = document.getElementById('result');
+
+    analyzeBtn.addEventListener('click', async () => {
+      if (!fileInput.files.length) {
+        alert('Please select an audio file first.');
+        return;
+      }
+      analyzeBtn.disabled = true;
+      resultElem.textContent = 'Analyzing...';
+
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+          const response = await fetch('http://localhost:5000/predict', {
+          method: 'POST',
+          body: formData
+        });
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+        const data = await response.json();
+        const genre = data.genre || 'Unknown';
+        const confidence = data.confidence !== undefined ? (data.confidence * 100).toFixed(1) + '%' : 'N/A';
+        resultElem.textContent = `Genre: ${genre} | Confidence: ${confidence}`;
+      } catch (err) {
+        resultElem.textContent = 'Error: ' + err.message;
+      } finally {
+        analyzeBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
